@@ -1,0 +1,7 @@
+# ninja log v6
+2	255	7511347111914380	build.ninja	ce88464c07b7203e
+3	330	7511346215303118	CMakeFiles/JaredScott_atmMachine.dir/main.cpp.obj	5862311aae41e3a
+9	435	7511346215367791	CMakeFiles/JaredScott_atmMachine.dir/atm.cpp.obj	d6c88fb46f6d494d
+435	564	7511346219620441	JaredScott_atmMachine.exe	cf427bbf6d988dc8
+4	447	7511349549510476	CMakeFiles/JaredScott_atmMachine.dir/atm.cpp.obj	d6c88fb46f6d494d
+447	573	7511349553942042	JaredScott_atmMachine.exe	cf427bbf6d988dc8
