@@ -4,6 +4,8 @@
 
 #include "atm.h"
 #include <iostream>
+#include <stdexcept>
+#include <limits>
 
 // Define global variables
 std::unordered_map<std::string, BankAccount> accounts;
@@ -26,6 +28,22 @@ void printMainMenu() {
     std::cout << "r  -> Request Balance\n";
     std::cout << "q  -> Quit\n";
     std::cin >> menuInput;
+}
+
+// Helper function for numeric input validation
+double getValidatedAmount() {
+    double amount;
+    while (true) {
+        std::cin >> amount;
+        if (std::cin.fail() || amount < 0) {
+            std::cout << "Invalid amount. Please enter a positive number: $";
+            std::cin.clear(); // Clear error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore invalid input
+        } else {
+            break;
+        }
+    }
+    return amount;
 }
 
 // Create a new account
@@ -64,22 +82,23 @@ void login() {
             printMainMenu();
             switch (menuInput) {
                 case 'd': {
-                    double depositAmount;
                     std::cout << "Amount of deposit: $";
-                    std::cin >> depositAmount;
+                    double depositAmount = getValidatedAmount();
                     account.balance += depositAmount;
                     std::cout << "Deposit successful!\n";
                     break;
                 }
                 case 'w': {
-                    double withdrawAmount;
                     std::cout << "Amount of withdrawal: $";
-                    std::cin >> withdrawAmount;
-                    if (withdrawAmount > account.balance) {
-                        std::cout << "Insufficient balance!\n";
-                    } else {
+                    double withdrawAmount = getValidatedAmount();
+                    try {
+                        if (withdrawAmount > account.balance) {
+                            throw std::runtime_error("Insufficient balance!");
+                        }
                         account.balance -= withdrawAmount;
                         std::cout << "Withdrawal successful!\n";
+                    } catch (const std::runtime_error& e) {
+                        std::cout << e.what() << "\n";
                     }
                     break;
                 }

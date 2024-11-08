@@ -6,7 +6,11 @@
 #include <iostream>
 
 int main() {
-    std::cout << "Hi! Welcome to Jared's ATM Machine!\n\n";
-    start();
+    try {
+        std::cout << "Hi! Welcome to Jared's ATM Machine!\n\n";
+        start();
+    } catch (const std::exception& e) {
+        std::cerr << "An error occurred: " << e.what() << "\n";
+    }
     return 0;
 }
